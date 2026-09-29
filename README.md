@@ -25,11 +25,12 @@ I grouped customers by the month of their first purchase and checked how many bo
 
 ![Monthly customer retention by first-purchase month](reports/figures/cohort_retention.png)
 
+## RFM Customer Segmentation
 In the RFM analysis, I looked at three measures for each customer: Recency, Frequency, and Monetary value. I then used K-Means to divide customers into four groups based on their buying activity: High Value / Loyal, Recent / Regular, At Risk, and Inactive / Low Value.
 
 The chart on the left shows the number of customers in each group. The heatmap on the right compares the groups using their median recency, number of orders, and total amount spent. Recency was reversed so that a higher score means a more recent purchase. The median values were then transformed and standardized across the four groups.
 
-**How to read the heatmap:** Red means a more recent purchase, more orders, or more spending, depending on the column. Blue means the opposite. Red generally shows stronger buying activity, but each color describes only one measure, not the whole customer group. Each number shows how a group compares with the average of the four groups in that column, after the values were transformed. Zero is the average. Positive numbers are above the average, and negative numbers are below it. For example, 0.7 is slightly above the average, while −1.7 is further below it. The distance from the average is measured in standard deviations.
+**How to read the heatmap:** Red means a more recent purchase, more orders, or more spending, depending on the column. Blue means the opposite. Red generally shows stronger buying activity, but each color describes only one measure, not the whole customer group. Each number shows how a group compares with the average of the four groups in that column, after the values were transformed. Zero is the average. Positive numbers are above the average, and negative numbers are below it. For example, 0.7 means above the average, while −1.7 means further below it. The distance from the average is measured in standard deviations.
 The table below the chart shows the actual median days since the last purchase, number of orders, and total amount spent for each group.
 
 ![RFM customer segments](reports/figures/rfm_segments.png)
@@ -45,7 +46,7 @@ The table below the chart shows the actual median days since the last purchase, 
 I used each customer's activity from the previous 180 days to predict whether they would buy again in the next 90 days. To keep the test realistic, I trained the models on earlier dates, used a later period for validation, and saved the most recent period for the final test.
 
 ### Model Results
-I included a majority baseline that predicted no repeat purchase for every customer. I then compared logistic regression, XGBoost, and gradient boosting using validation data. Accuracy was not the only thing I focused on because it would not indicate how good my model is at predicting repeat buyers. I used logistic regression based on the average of its F1 score, ROC-AUC, and Average Precision.
+I included a majority baseline that predicted no repeat purchase for every customer. I then compared logistic regression, XGBoost, and gradient boosting using validation data. Accuracy was not the only thing I focused on because it would not indicate how good my model is at predicting repeat buyers. I selected logistic regression because it had the highest average score across F1, ROC-AUC, and Average Precision.
 
 On the final test data, logistic regression reached 0.737 ROC-AUC, 0.740 F1, and 78% recall. The majority baseline had 0 F1.
 
